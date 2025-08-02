@@ -29,23 +29,27 @@ struct ContentView: View {
                 
                 Text("Select your meditation time")
                     .font(.title2)
-                    .padding(.bottom)
+                    .padding(.bottom, 40)
 
                 // Duration buttons
-                ForEach(meditationTimes, id: \.self) { time in
-                    Button("\(time) minutes") {
-                        selectedDuration = time
-                        isMeditationViewPresented = true
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
+                    ForEach(meditationTimes, id: \.self) { time in
+                        Button(action: {
+                            selectedDuration = time
+                            isMeditationViewPresented = true
+                        }) {
+                            Text("\(time) min")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                        }
+                        .frame(width: 120, height: 120)
+                        .background(Color.blue)
+                        .clipShape(Circle())
+                        .shadow(radius: 5)
+                        .padding(.all, 20)
                     }
-                    .font(.headline)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
                 }
-                
-                // History List
                 if !meditationHistory.isEmpty {
                     Text("Recent Meditations")
                         .font(.headline)
