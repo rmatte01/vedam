@@ -76,7 +76,7 @@ struct MeditationView: View {
 
                 // Music Toggle
                 Toggle(isOn: $playMusic) {
-                    Text("Play Instrumental Music")
+                    Text(NSLocalizedString("Play Instrumental Music", comment: "Toggle label"))
                         .foregroundColor(.white)
                 }
                 .padding(.horizontal, 40)
@@ -105,7 +105,7 @@ struct MeditationView: View {
                     }
                     
                     Button(action: stopMeditation) {
-                        Text("Stop")
+                        Text(NSLocalizedString("Stop", comment: "Stop button"))
                             .font(.title)
                             .padding()
                             .frame(width: 150)
@@ -123,15 +123,25 @@ struct MeditationView: View {
                 }
             }
         }
+        .onAppear(perform: setupAudioSession)
     }
     
     // MARK: - Private Methods
     
     private func buttonText() -> String {
         if isRunning {
-            return "Pause"
+            return NSLocalizedString("Pause", comment: "Pause button")
         } else {
-            return isPaused ? "Resume" : "Start"
+            return isPaused ? NSLocalizedString("Resume", comment: "Resume button") : NSLocalizedString("Start", comment: "Start button")
+        }
+    }
+    
+    private func setupAudioSession() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("Failed to set up audio session: \(error.localizedDescription)")
         }
     }
     
@@ -237,10 +247,10 @@ struct BreathingAnimationView: View {
         
         var displayText: String {
             switch self {
-            case .inhale: return "INHALE"
-            case .hold1: return "HOLD"
-            case .exhale: return "EXHALE"
-            case .hold2: return "HOLD"
+            case .inhale: return NSLocalizedString("INHALE", comment: "Breathing animation text")
+            case .hold1: return NSLocalizedString("HOLD", comment: "Breathing animation text")
+            case .exhale: return NSLocalizedString("EXHALE", comment: "Breathing animation text")
+            case .hold2: return NSLocalizedString("HOLD", comment: "Breathing animation text")
             }
         }
     }
@@ -316,7 +326,7 @@ struct BreathingAnimationView: View {
         animationTimer?.invalidate()
         animationTimer = nil
         scale = 1.0
-        text = "Inhale"
+        text = NSLocalizedString("Inhale", comment: "Breathing animation text")
         textOpacity = 1.0
         currentBreathingPhase = .inhale
         phaseProgress = 0

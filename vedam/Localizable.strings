@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  vedam
+
+  Created by Ravinder Matte on 8/02/25.
+  
+*/
+
+"Vedam" = "Vedam";
+"Select your meditation time" = "Select your meditation time";
+"%d min" = "%d min";
+"Recent Meditations" = "Recent Meditations";
+"Home" = "Home";
+"Breath" = "Breath";
+"Play Instrumental Music" = "Play Instrumental Music";
+"Start" = "Start";
+"Pause" = "Pause";
+"Resume" = "Resume";
+"Stop" = "Stop";
+"Congratulations!" = "Congratulations!";
+"Done" = "Done";
+"HealthKit Authorization Failed" = "HealthKit Authorization Failed";
+"Could not get permission to save meditations to HealthKit. Please check your settings." = "Could not get permission to save meditations to HealthKit. Please check your settings.";
+"OK" = "OK";

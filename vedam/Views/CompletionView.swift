@@ -13,7 +13,7 @@ struct CompletionView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            Text("Congratulations!")
+            Text(NSLocalizedString("Congratulations!", comment: "Completion message"))
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundColor(.white)
@@ -41,7 +41,7 @@ struct CompletionView: View {
             }
 
             Button(action: onDismiss) {
-                Text("Done")
+                Text(NSLocalizedString("Done", comment: "Done button"))
                     .font(.title2)
                     .padding()
                     .frame(width: 150)

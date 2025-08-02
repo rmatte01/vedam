@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var isMeditationViewPresented = false
     @State private var selectedDuration: Int = 2 // Default duration
     @State private var meditationHistory: [Meditation] = []
+    @State private var showHealthKitAuthError = false
     
     // Managers
     private let healthKitManager = HealthKitManager()
@@ -24,12 +25,12 @@ struct ContentView: View {
             VStack(spacing: 20) {
                 Spacer()
                 // Header
-                Text("Vedam")
+                Text(NSLocalizedString("Vedam", comment: "App Title"))
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                 
-                Text("Select your meditation time")
+                Text(NSLocalizedString("Select your meditation time", comment: "Subtitle"))
                     .font(.title2)
                     .padding(.bottom, 40)
                     .foregroundColor(.white)
@@ -41,7 +42,7 @@ struct ContentView: View {
                             selectedDuration = time
                             isMeditationViewPresented = true
                         }) {
-                            Text("\(time) min")
+                            Text(String(format: NSLocalizedString("%d min", comment: "Duration button"), time))
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
@@ -54,18 +55,14 @@ struct ContentView: View {
                     }
                 }
                 if !meditationHistory.isEmpty {
-                    Text("Recent Meditations")
+                    Text(NSLocalizedString("Recent Meditations", comment: "History section title"))
                         .font(.headline)
                         .padding(.top)
                         .foregroundColor(.white)
                     
-                    List(meditationHistory.prefix(5)) { meditation in
-                        HStack {
-                            Text("\(meditation.duration) min")
-                                .foregroundColor(.white)
-                            Spacer()
-                            Text(meditation.date, style: .date)
-                                .foregroundColor(.white)
+                    List {
+                        ForEach(meditationHistory.prefix(5)) { meditation in
+                            HistoryRow(meditation: meditation)
                         }
                         .listRowBackground(Color.black)
                     }
@@ -76,7 +73,7 @@ struct ContentView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle("Home")
+            .navigationTitle(NSLocalizedString("Home", comment: "Navigation bar title"))
             .navigationBarHidden(true)
             .background(Color.black.edgesIgnoringSafeArea(.all))
         }
@@ -92,6 +89,13 @@ struct ContentView: View {
                 duration: selectedDuration * 60,
                 healthKitManager: healthKitManager,
                 onSessionComplete: addMeditationToHistory
+            )
+        }
+        .alert(isPresented: $showHealthKitAuthError) {
+            Alert(
+                title: Text(NSLocalizedString("HealthKit Authorization Failed", comment: "Alert title")),
+                message: Text(NSLocalizedString("Could not get permission to save meditations to HealthKit. Please check your settings.", comment: "Alert message")),
+                dismissButton: .default(Text(NSLocalizedString("OK", comment: "Alert button")))
             )
         }
     }
@@ -120,10 +124,32 @@ struct ContentView: View {
     private func requestHealthKitAuthorization() {
         healthKitManager.requestAuthorization { success, error in
             if !success {
-                // Handle error or inform user
-                print("HealthKit authorization failed.")
+                showHealthKitAuthError = true
             }
         }
+    }
+}
+
+struct HistoryRow: View {
+    let meditation: Meditation
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(String(format: NSLocalizedString("%d min", comment: "Duration in history"), meditation.duration))
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Text(meditation.date, style: .date)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
+            Spacer()
+            Image(systemName: "leaf.arrow.triangle.circlepath")
+                .foregroundColor(.green)
+        }
+        .padding()
+        .background(Color.gray.opacity(0.1))
+        .cornerRadius(10)
     }
 }
 

@@ -9,9 +9,22 @@ import SwiftUI
 
 @main
 struct vedamApp: App {
+    @State private var isShowingLaunchScreen = true
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if isShowingLaunchScreen {
+                LaunchScreen()
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            withAnimation {
+                                isShowingLaunchScreen = false
+                            }
+                        }
+                    }
+            } else {
+                ContentView()
+            }
         }
     }
 }
