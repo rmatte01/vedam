@@ -287,7 +287,7 @@ struct BreathingAnimationView: View {
     
     private func pauseAnimation() {
         animationTimer?.invalidate()
-        animationTimer = nil
+        animationTimer = nil 
     }
 
     private func updateViewForPhase(phase: BreathingPhase) {

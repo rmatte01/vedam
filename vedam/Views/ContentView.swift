@@ -45,11 +45,11 @@ struct ContentView: View {
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
+                                .frame(width: 120, height: 120)
+                                .background(Color.blue)
+                                .clipShape(Circle())
+                                .shadow(radius: 5)
                         }
-                        .frame(width: 120, height: 120)
-                        .background(Color.blue)
-                .clipShape(Circle())
-                        .shadow(radius: 5)
                         .padding(.all, 20)
                     }
                 }
