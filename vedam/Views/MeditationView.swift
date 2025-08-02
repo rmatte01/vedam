@@ -37,6 +37,7 @@ struct MeditationView: View {
 
     var body: some View {
         ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
             VStack(spacing: 20) {
                 // Header
     //            Text("Breath")
@@ -50,6 +51,7 @@ struct MeditationView: View {
                         .font(.system(size: 40, weight: .bold, design: .monospaced))
                         .padding(.bottom, 20) // Add some space below the text
                         .fontWeight(.heavy)
+                        .foregroundColor(.white)
 
                     GeometryReader { geometry in
                         ZStack(alignment: .leading) { // Use ZStack for layering capsules, align to leading
@@ -75,6 +77,7 @@ struct MeditationView: View {
                 // Music Toggle
                 Toggle(isOn: $playMusic) {
                     Text("Play Instrumental Music")
+                        .foregroundColor(.white)
                 }
                 .padding(.horizontal, 40)
                 .onChange(of: playMusic) { _, newValue in
@@ -252,6 +255,7 @@ struct BreathingAnimationView: View {
             Text(text)
                 .font(.largeTitle)
                 .opacity(textOpacity)
+                .foregroundColor(.white)
         }
         .onAppear(perform: resetAnimation)
         .onChange(of: isAnimating) { _, newValue in

@@ -22,14 +22,17 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
+                Spacer()
                 // Header
                 Text("Vedam")
                     .font(.largeTitle)
                     .fontWeight(.bold)
+                    .foregroundColor(.white)
                 
                 Text("Select your meditation time")
                     .font(.title2)
                     .padding(.bottom, 40)
+                    .foregroundColor(.white)
 
                 // Duration buttons
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
@@ -45,7 +48,7 @@ struct ContentView: View {
                         }
                         .frame(width: 120, height: 120)
                         .background(Color.blue)
-                        .clipShape(Circle())
+                .clipShape(Circle())
                         .shadow(radius: 5)
                         .padding(.all, 20)
                     }
@@ -54,15 +57,20 @@ struct ContentView: View {
                     Text("Recent Meditations")
                         .font(.headline)
                         .padding(.top)
+                        .foregroundColor(.white)
                     
                     List(meditationHistory.prefix(5)) { meditation in
                         HStack {
                             Text("\(meditation.duration) min")
+                                .foregroundColor(.white)
                             Spacer()
                             Text(meditation.date, style: .date)
+                                .foregroundColor(.white)
                         }
+                        .listRowBackground(Color.black)
                     }
                     .listStyle(PlainListStyle())
+                    .background(Color.black)
                 }
                 
                 Spacer()
@@ -70,6 +78,7 @@ struct ContentView: View {
             .padding()
             .navigationTitle("Home")
             .navigationBarHidden(true)
+            .background(Color.black.edgesIgnoringSafeArea(.all))
         }
         .onAppear {
             loadHistory()
