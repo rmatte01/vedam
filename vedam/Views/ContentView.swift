@@ -85,8 +85,8 @@ struct ContentView: View {
     
     // MARK: - Private Methods
     
-    private func addMeditationToHistory(duration: Int) {
-        let newMeditation = Meditation(date: Date(), duration: duration)
+    private func addMeditationToHistory(durationInMinutes: Int) {
+        let newMeditation = Meditation(date: Date(), duration: durationInMinutes)
         meditationHistory.insert(newMeditation, at: 0)
     }
     
