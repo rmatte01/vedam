@@ -18,4 +18,8 @@ struct Meditation: Identifiable, Codable, Equatable {
         self.date = date
         self.duration = duration
     }
+    
+    static func == (lhs: Meditation, rhs: Meditation) -> Bool {
+        return lhs.date == rhs.date && lhs.duration == rhs.duration
+    }
 }

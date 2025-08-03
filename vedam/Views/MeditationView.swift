@@ -70,9 +70,10 @@ struct MeditationView: View {
                 .frame(maxWidth: .infinity) // Allow VStack to take full width
                 
                 
+                Spacer() // Pushes content to center
                 // Breathing Animation
                 BreathingAnimationView(isAnimating: $isBreathingAnimationRunning)
-                    .padding(.vertical, 100) // Add vertical padding to center it
+                Spacer() // Pushes content to center
 
                 // Music Toggle
                 Toggle(isOn: $playMusic) {
@@ -264,7 +265,8 @@ struct BreathingAnimationView: View {
         ZStack {
             Circle()
                 .fill(Color.blue.opacity(0.3))
-                .frame(width: 200, height: 200)
+                .frame(maxWidth: 200, maxHeight: 200)
+                .aspectRatio(1, contentMode: .fit)
                 .scaleEffect(scale)
 
             Text(text)
