@@ -46,19 +46,22 @@ struct ContentView: View {
                 // Duration buttons
                 LazyVGrid(columns: gridColumns, spacing: 20) {
                     ForEach(meditationTimes, id: \.self) { time in
-                        Button(action: {
-                            selectedDuration = time
-                            isMeditationViewPresented = true
-                        }) {
-                            Text(String(format: NSLocalizedString("%d min", comment: "Duration button"), time))
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .frame(width: 120, height: 120)
-                                .background(Color.blue)
-                                .clipShape(Circle())
-                                .shadow(radius: 5)
+                        GeometryReader { geometry in
+                            Button(action: {
+                                selectedDuration = time
+                                isMeditationViewPresented = true
+                            }) {
+                                Text(String(format: NSLocalizedString("%d min", comment: "Duration button"), time))
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                    .frame(width: geometry.size.width, height: geometry.size.width)
+                                    .background(Color.blue)
+                                    .clipShape(Circle())
+                                    .shadow(radius: 5)
+                            }
                         }
+                        .aspectRatio(1, contentMode: .fit)
                         .padding(.all, 20)
                     }
                 }

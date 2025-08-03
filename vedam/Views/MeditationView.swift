@@ -94,26 +94,31 @@ struct MeditationView: View {
 
                 // Action Buttons
                 HStack(spacing: 20) {
-                    Button(action: toggleTimer) {
-                        Text(buttonText())
-                            .font(.title)
-                            .padding()
-                            .frame(width: 150)
-                            .background(isRunning ? Color.orange : Color.green)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                    GeometryReader { geometry in
+                        Button(action: toggleTimer) {
+                            Text(buttonText())
+                                .font(.title)
+                                .padding()
+                                .frame(width: geometry.size.width)
+                                .background(isRunning ? Color.orange : Color.green)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
                     }
                     
-                    Button(action: stopMeditation) {
-                        Text(NSLocalizedString("Stop", comment: "Stop button"))
-                            .font(.title)
-                            .padding()
-                            .frame(width: 150)
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                    GeometryReader { geometry in
+                        Button(action: stopMeditation) {
+                            Text(NSLocalizedString("Stop", comment: "Stop button"))
+                                .font(.title)
+                                .padding()
+                                .frame(width: geometry.size.width)
+                                .background(Color.red)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
                     }
                 }
+                .frame(height: 80)
             }
 
             if showCompletionView {

@@ -40,15 +40,19 @@ struct CompletionView: View {
                 }
             }
 
-            Button(action: onDismiss) {
-                Text(NSLocalizedString("Done", comment: "Done button"))
-                    .font(.title2)
-                    .padding()
-                    .frame(width: 150)
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+            GeometryReader { geometry in
+                Button(action: onDismiss) {
+                    Text(NSLocalizedString("Done", comment: "Done button"))
+                        .font(.title2)
+                        .padding()
+                        .frame(width: geometry.size.width * 0.5)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             }
+            .frame(height: 80)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.opacity(0.75))
