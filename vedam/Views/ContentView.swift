@@ -144,18 +144,23 @@ struct ContentView: View {
 struct HistoryRow: View {
     let meditation: Meditation
     
+    private var isIpad: Bool {
+        UIDevice.current.userInterfaceIdiom == .pad
+    }
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 Text(String(format: NSLocalizedString("%d min", comment: "Duration in history"), meditation.duration))
-                    .font(.headline)
+                    .font(isIpad ? .title2 : .headline)
                     .foregroundColor(.white)
                 Text(meditation.date, style: .date)
-                    .font(.caption)
+                    .font(isIpad ? .title3 : .caption)
                     .foregroundColor(.gray)
             }
             Spacer()
             Image(systemName: "leaf.arrow.triangle.circlepath")
+                .font(isIpad ? .title : .body)
                 .foregroundColor(.green)
         }
         .padding()
