@@ -20,6 +20,14 @@ struct ContentView: View {
     // Constants
     let meditationTimes = [2, 4, 10, 20]
 
+    private var gridColumns: [GridItem] {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+        } else {
+            return [GridItem(.flexible()), GridItem(.flexible())]
+        }
+    }
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
@@ -36,7 +44,7 @@ struct ContentView: View {
                     .foregroundColor(.white)
 
                 // Duration buttons
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
+                LazyVGrid(columns: gridColumns, spacing: 20) {
                     ForEach(meditationTimes, id: \.self) { time in
                         Button(action: {
                             selectedDuration = time
