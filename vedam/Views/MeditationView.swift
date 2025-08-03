@@ -130,6 +130,7 @@ struct MeditationView: View {
             }
         }
         .onAppear(perform: setupAudioSession)
+        .navigationBarHidden(true)
     }
     
     // MARK: - Private Methods

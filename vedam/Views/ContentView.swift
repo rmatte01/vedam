@@ -95,7 +95,7 @@ struct ContentView: View {
         .onChange(of: meditationHistory) { _, newValue in
             saveHistory(newValue)
         }
-        .sheet(isPresented: $isMeditationViewPresented) {
+        .fullScreenCover(isPresented: $isMeditationViewPresented) {
             MeditationView(
                 duration: selectedDuration * 60,
                 healthKitManager: healthKitManager,
