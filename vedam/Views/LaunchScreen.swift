@@ -18,7 +18,7 @@ struct LaunchScreen: View {
                     .frame(width: 150, height: 150)
                 Text("Vedam")
                     .font(.largeTitle)
-                    .fontWeight(.bold)
+                    .fontWeight(.heavy)
                     .foregroundColor(.white)
             }
         }

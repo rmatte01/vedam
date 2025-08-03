@@ -16,12 +16,12 @@ struct CompletionView: View {
             Text(NSLocalizedString("Congratulations!", comment: "Completion message"))
                 .font(.largeTitle)
                 .fontWeight(.bold)
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
 
             ZStack {
                 Circle()
                     .stroke(lineWidth: 5)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .frame(width: 100, height: 100)
                 
                 Path { path in
@@ -31,7 +31,7 @@ struct CompletionView: View {
                 }
                 .trim(from: 0, to: checkmarkTrim)
                 .stroke(style: StrokeStyle(lineWidth: 5, lineCap: .round, lineJoin: .round))
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .frame(width: 100, height: 100)
             }
             .onAppear {
@@ -52,7 +52,7 @@ struct CompletionView: View {
             .padding(.horizontal, 40) // Add horizontal padding to constrain width
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.opacity(0.75))
+        .background(Color(.systemBackground).opacity(0.9))
         .edgesIgnoringSafeArea(.all)
     }
 }

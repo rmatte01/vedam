@@ -37,7 +37,7 @@ struct MeditationView: View {
 
     var body: some View {
         ZStack {
-            Color.black.edgesIgnoringSafeArea(.all)
+            Color(.systemBackground).edgesIgnoringSafeArea(.all)
             VStack(spacing: 20) {
                 // Header
     //            Text("Breath")
@@ -51,12 +51,12 @@ struct MeditationView: View {
                         .font(.system(size: 40, weight: .bold, design: .monospaced))
                         .padding(.bottom, 20) // Add some space below the text
                         .fontWeight(.heavy)
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
 
                     GeometryReader { geometry in
                         ZStack(alignment: .leading) { // Use ZStack for layering capsules, align to leading
                             Capsule()
-                                .fill(Color.gray.opacity(0.3)) // Background for the progress line
+                                .fill(Color(.systemGray5)) // Background for the progress line
                                 .frame(height: 10) // Thin line
 
                             Capsule()
@@ -78,7 +78,7 @@ struct MeditationView: View {
                 // Music Toggle
                 Toggle(isOn: $playMusic) {
                     Text(NSLocalizedString("Play Instrumental Music", comment: "Toggle label"))
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                 }
                 .padding(.horizontal, 40)
                 .onChange(of: playMusic) { _, newValue in
@@ -120,6 +120,7 @@ struct MeditationView: View {
                     }
                 }
                 .frame(height: 80)
+                .padding(.horizontal, 20)
             }
 
             if showCompletionView {
@@ -273,7 +274,7 @@ struct BreathingAnimationView: View {
             Text(text)
                 .font(.largeTitle)
                 .opacity(textOpacity)
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
         }
         .onAppear(perform: resetAnimation)
         .onChange(of: isAnimating) { _, newValue in

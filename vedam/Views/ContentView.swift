@@ -36,12 +36,12 @@ struct ContentView: View {
                 Text(NSLocalizedString("Vedam", comment: "App Title"))
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                 
                 Text(NSLocalizedString("Select your meditation time", comment: "Subtitle"))
                     .font(.title2)
                     .padding(.bottom, 40)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
 
                 // Duration buttons
                 LazyVGrid(columns: gridColumns, spacing: 20) {
@@ -56,7 +56,7 @@ struct ContentView: View {
                                     .fontWeight(.bold)
                                     .foregroundColor(.white)
                                     .frame(width: geometry.size.width, height: geometry.size.width)
-                                    .background(Color.blue)
+                                    .background(Color.accentColor)
                                     .clipShape(Circle())
                                     .shadow(radius: 5)
                             }
@@ -69,16 +69,16 @@ struct ContentView: View {
                     Text(NSLocalizedString("Recent Meditations", comment: "History section title"))
                         .font(.headline)
                         .padding(.top)
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                     
                     List {
                         ForEach(meditationHistory.prefix(5)) { meditation in
                             HistoryRow(meditation: meditation)
                         }
-                        .listRowBackground(Color.black)
+                        .listRowBackground(Color(.systemBackground))
                     }
                     .listStyle(PlainListStyle())
-                    .background(Color.black)
+                    .background(Color(.systemBackground))
                 }
                 
                 Spacer()
@@ -86,7 +86,7 @@ struct ContentView: View {
             .padding()
             .navigationTitle(NSLocalizedString("Home", comment: "Navigation bar title"))
             .navigationBarHidden(true)
-            .background(Color.black.edgesIgnoringSafeArea(.all))
+            .background(Color(.systemBackground).edgesIgnoringSafeArea(.all))
         }
         .onAppear {
             loadHistory()
@@ -153,10 +153,10 @@ struct HistoryRow: View {
             VStack(alignment: .leading) {
                 Text(String(format: NSLocalizedString("%d min", comment: "Duration in history"), meditation.duration))
                     .font(isIpad ? .title2 : .headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                 Text(meditation.date, style: .date)
                     .font(isIpad ? .title3 : .caption)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
             }
             Spacer()
             Image(systemName: "leaf.arrow.triangle.circlepath")
@@ -164,7 +164,7 @@ struct HistoryRow: View {
                 .foregroundColor(.green)
         }
         .padding()
-        .background(Color.gray.opacity(0.1))
+        .background(Color(.secondarySystemBackground))
         .cornerRadius(10)
     }
 }
