@@ -1,0 +1,25 @@
+# Xcode
+.DS_Store
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcuserdatad/
+*.xcarchive/
+*.ipa
+*.dSYM
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# CocoaPods
+Pods/
+.symlinks/
+
+# Carthage
+Carthage/Build/
+
+# DerivedData
+DerivedData/
+
+# Playgrounds
+*.playground/
