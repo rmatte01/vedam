@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import AVFoundation
+
 
 struct MeditationView: View {
     // Environment and state variables
@@ -24,9 +24,8 @@ struct MeditationView: View {
     @State private var isBreathingAnimationRunning = false
     @State private var showCompletionView = false
     
-    // Music state
-    @State private var playMusic = false
-    @State private var audioPlayer: AVAudioPlayer?
+    
+
 
     init(duration: Int, healthKitManager: HealthKitManager, onSessionComplete: @escaping (Int) -> Void) {
         self.duration = duration
@@ -75,23 +74,7 @@ struct MeditationView: View {
                 BreathingAnimationView(isAnimating: $isBreathingAnimationRunning)
                 Spacer() // Pushes content to center
 
-                // Music Toggle
-                Toggle(isOn: $playMusic) {
-                    Text(NSLocalizedString("Play Instrumental Music", comment: "Toggle label"))
-                        .foregroundColor(.primary)
-                }
-                .padding(.horizontal, 40)
-                .onChange(of: playMusic) { _, newValue in
-                    if newValue {
-                        setupAudio()
-                        if isRunning {
-                            audioPlayer?.play()
-                        }
-                    } else {
-                        audioPlayer?.stop()
-                        audioPlayer = nil
-                    }
-                }
+                
 
                 // Action Buttons
                 HStack(spacing: 20) {
@@ -130,7 +113,6 @@ struct MeditationView: View {
                 }
             }
         }
-        .onAppear(perform: setupAudioSession)
         .navigationBarHidden(true)
     }
     
@@ -141,25 +123,6 @@ struct MeditationView: View {
             return NSLocalizedString("Pause", comment: "Pause button")
         } else {
             return isPaused ? NSLocalizedString("Resume", comment: "Resume button") : NSLocalizedString("Start", comment: "Start button")
-        }
-    }
-    
-    private func setupAudioSession() {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            print("Failed to set up audio session: \(error.localizedDescription)")
-        }
-    }
-    
-    private func setupAudio() {
-        guard playMusic, let audioPath = Bundle.main.path(forResource: "instrumental", ofType: "mp3") else { return }
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: audioPath))
-            audioPlayer?.numberOfLoops = -1 // Loop indefinitely
-        } catch {
-            print("Error loading audio file: \(error.localizedDescription)")
         }
     }
     
@@ -181,9 +144,6 @@ struct MeditationView: View {
         if isRunning {
             isPaused = false
             triggerHapticFeedback() // Vibrate on start
-            if playMusic {
-                audioPlayer?.play()
-            }
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 if remainingTime > 0 {
                     remainingTime -= 1
@@ -198,20 +158,14 @@ struct MeditationView: View {
         } else {
             isPaused = true
             timer?.invalidate()
-            audioPlayer?.pause()
         }
     }
     
     private func stopMeditation() {
         timer?.invalidate()
-        audioPlayer?.stop()
         isRunning = false
         isPaused = false
         isBreathingAnimationRunning = false
-        
-        if elapsedTime > 0 {
-            saveMeditationSession()
-        }
         dismiss()
     }
     
@@ -220,7 +174,6 @@ struct MeditationView: View {
         isRunning = false
         isPaused = false
         isBreathingAnimationRunning = false
-        audioPlayer?.stop()
         triggerHapticFeedback() // Vibrate on end
         showCompletionView = true
     }
@@ -243,7 +196,7 @@ struct MeditationView: View {
 struct BreathingAnimationView: View {
     @Binding var isAnimating: Bool
     @State private var scale: CGFloat = 1.0
-    @State private var text: String = "INHALE"
+    @State private var text: String = "START"
     @State private var textOpacity: Double = 1.0
     @State private var currentBreathingPhase: BreathingPhase = .inhale
     @State private var animationTimer: Timer?
@@ -335,7 +288,7 @@ struct BreathingAnimationView: View {
         animationTimer?.invalidate()
         animationTimer = nil
         scale = 1.0
-        text = NSLocalizedString("Inhale", comment: "Breathing animation text")
+        text = NSLocalizedString("START", comment: "Breathing animation text")
         textOpacity = 1.0
         currentBreathingPhase = .inhale
         phaseProgress = 0
